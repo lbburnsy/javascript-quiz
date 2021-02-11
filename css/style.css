@@ -2,5 +2,9 @@
 
 header {
     padding: 20px;
-    background-color: red;
+    /* background-color: red; */
+}
+
+.question-div {
+    /* background-color: orange; */
 }
