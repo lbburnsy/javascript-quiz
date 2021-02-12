@@ -1,4 +1,4 @@
-// Query the Document
+ // Query the Document
 // Generic selector for the 4 answer options
 const answerEl = $(".answer");
 // Selects the specific answer field
@@ -12,66 +12,100 @@ const promptParagraph = $("#prompt-paragraph");
 const startButton = $("#start-button");
 // Selects the timer
 const timerOutput = $("#timer-output");
+
+const resultOutput = $("#result-output");
+
+let time = 60;
 // An array of objects for questions
 const questions = [
     {
     question: "The correct answer is JavaScript",
-    answers: {
+    options: {
         A: "JavaScript",
         B: "CSS",
         C: "HTML",
         D: "JQuery"
     },
-    correctAnswer: "a"
+    answer: "a"
+},
+{
+    question: "The correct answer is CSS",
+    options: {
+        A: "JavaScript",
+        B: "CSS",
+        C: "HTML",
+        D: "JQuery"
+    },
+    answer: "b"
 }
 ]
 
 // A function to display the current question
+// function displayQuestion() {
+//     promptParagraph.text(`${questions[0].question}`)
+//     choiceOne.text(questions[0].options.A);
+//     choiceTwo.text(questions[0].options.B);
+//     choiceThree.text(questions[0].options.C);
+//     choiceFour.text(questions[0].options.D);
+// }
+
 function displayQuestion() {
-    promptParagraph.text(`${questions[0].question}`)
-    choiceOne.text(questions[0].answers.A);
-    choiceTwo.text(questions[0].answers.B);
-    choiceThree.text(questions[0].answers.C);
-    choiceFour.text(questions[0].answers.D);
+    let choice;
+    let random = (Math.floor(Math.random() * questions.length));
+    choice = questions.pop(random);
+    promptParagraph.text(choice.question);
+    choiceOne.text(choice.A);
+    choiceTwo.text(choice.B);
+    choiceThree.text(choice.C);
+    choiceFour.text(choice.D);
 }
 
-displayQuestion();
-//Score Counter and counter variable
+console.log(displayQuestion);
+console.log(displayQuestion);
 
-// Init function to display the top three saved scores
 
 // A function to check correct answers
+function correctAnswer() {
+    resultOutput.text("You are correct!");
+}
 
 // A function to check wrong answers
+function wrongAnswer() {
+    resultOutput.text("Wrong!");
+    time -= 5;
+}
 
-// A game over function
 
-// A save score function
 
 // Handles the click on the answer elements
 
 function handleClick(answer) {
+    displayQuestion();
     answerEl.on("click", (event) => {
-        console.log(event.target.dataset.value);
         if (event.target.dataset.value === answer) {
-            console.log("Correct");
+            correctAnswer();
         } else {
-            console.log("Wrong");
+            wrongAnswer();
         }
     })
 }
 
 
-handleClick(questions[0].correctAnswer);
+handleClick(questions[0].answer);
 
+// A game over function
 
+// A save score function
 
+//Score Counter and counter variable
+
+// Init function to display the top three saved scores
 
 
 // A timer function
 
 function timer(){
-    let time = 60;
+    
     let timeRemaining = setInterval(function(){
         timerOutput.text(`00:${time}`);
         time--;
