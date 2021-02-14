@@ -1,0 +1,16 @@
+/* Header Stylings */
+
+header {
+  width: 100vw;
+  background-color: blue;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+header h1 {
+  font-size: 2em;
+}
+
