@@ -1,10 +1,15 @@
 .question-output-div {
     margin-bottom: 2rem ;
     font-size: 4rem;
+    margin-top: 4rem;
 }
 
 #result-output {
     font-size: 3rem;
+}
+
+#timer-output {
+    font-size: 4rem;
 }
 
 .correct-answer {
