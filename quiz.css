@@ -1,0 +1,18 @@
+.question-output-div {
+    margin-bottom: 2rem ;
+    font-size: 4rem;
+}
+
+#result-output {
+    font-size: 3rem;
+}
+
+.correct-answer {
+    background-color: green;
+    color: white;
+}
+
+.wrong-answer {
+    background-color: red;
+    color: white;
+}
