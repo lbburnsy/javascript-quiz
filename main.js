@@ -6,8 +6,9 @@ const answerOutputDiv = $(".answer-output-div");
 const answerBtn = $("answer-btn");
 const resultOutput = $("#result-output");
 const highScoreDiv = $("#high-score-div");
+const highScoreLink = $("#high-score-link");
 
-let sec = 20;
+let sec = 90;
 let score;
 
 let questions = [
@@ -93,20 +94,22 @@ function checkCorrect(target) {
             }, 1000)
         } else {
             resultOutput.text("Wrong!");
-            sec -= 5;
+            sec -= 10;
             setTimeout(function() {
                 resultOutput.text("");
                 displayInterface();
             }, 1000)
         }
-    } else if (questions.length == 0){
+    } else if (questions.length < 0){
         endGame();
     }
     }
 
 function selectQuestion() {
     let selectedQuestion = questions.shift();
+    console.log(questions.length);
     return selectedQuestion;
+    
 }
 
 function timer() {
@@ -114,11 +117,25 @@ function timer() {
     function startTimer() {
         let timer = setInterval(() => {
             sec--;
-            timerOutput.text("00:"+sec);
-            if (sec<1 || questions.length == 0) {
+            if (sec > 69) {
+                timerOutput.text("1:"+(sec-60));
+            } else if (sec > 59) {
+                timerOutput.text("1:0"+(sec-60));
+            } else if (sec > 9) {
+                timerOutput.text("00:"+sec);
+            } else {
+                timerOutput.text("00:0"+sec);
+            }
+            // timerOutput.text("00:"+sec);
+            if (questions.length == 0) {
                 clearInterval(timer);
                 endGame();
             }
+            if (sec<1) {
+                clearInterval(timer);
+                endGame();
+            }
+            
         }, 1000);
     }
     startTimer();
@@ -127,38 +144,31 @@ function timer() {
 
 function displayInterface() {
     let selectedQuestion = selectQuestion();
+    console.log(questions.length + "Before shift")
     populateQuestion(selectedQuestion);
     populateAnswers(selectedQuestion);
+    
 }
 
 function startQuiz() {
-    displayInterface();
     handleAnswerClick();
+    displayInterface();
+    
     timer();
 }
 
-function displayHighScore() {
-    
-    let user = localStorage.getItem("user");
-    let score = localStorage.getItem("score");
-    console.log(user, score);
-    // let element = $("<p>");
-    // element.addClass("high-score-output");
-    // element.text(`${user}: ${score}`);
-    // highScoreDiv.append(element);
-}
+
 
 function endGame() {
     console.log("end game");
-    // answerOutputDiv.empty();
-    // questionOutput.empty();
-    // timerOutput.empty();
     $(".container").addClass('hide');
+    highScoreLink.removeClass('hide');
     score = sec;
-    // let userName = prompt("please enter a username");
+    let userName = prompt("please enter a username");
+    if (score > localStorage.getItem("score")) {
+        localStorage.setItem("user", userName);
     localStorage.setItem("score", score);
-    localStorage.setItem("user", "luc");
-    displayHighScore();
+    }
 }
 
 startQuiz();
