@@ -51,3 +51,7 @@ body {
     color: white;
     box-shadow: 2px 2px 10px white;
 }
+
+.hide {
+    display:none;
+}

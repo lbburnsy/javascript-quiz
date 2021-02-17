@@ -5,6 +5,10 @@ const questionOutput = $("#question-output");
 const answerOutputDiv = $(".answer-output-div");
 const answerBtn = $("answer-btn");
 const resultOutput = $("#result-output");
+const highScoreDiv = $("#high-score-div");
+
+let sec = 20;
+let score;
 
 let questions = [
     {
@@ -50,13 +54,13 @@ function shuffleArray(array) {
 
 shuffleArray(questions);
 
-let testQuestion = questions[0]
-
 function populateQuestion(question) {
+    questionOutput.empty();
     questionOutput.text(question.question);
 }
 
 function populateAnswers(question) {
+    answerOutputDiv.empty();
     let answers = question.answers
     answers.forEach(element => {
         let button = $("<a>");
@@ -78,15 +82,83 @@ function handleAnswerClick() {
 
 function checkCorrect(target) {
     let correct = target.getAttribute("correct");
-    if (correct === "true") {
-        resultOutput.text("Correct!")
-    } else {
-        resultOutput.text("Wrong!");
+    if (questions.length > 0 && sec > 0) {
+        if (correct === "true") {
+            resultOutput.text("Correct!")
+            // timedResultOutput();
+            // displayInterface();
+            setTimeout(function() {
+                resultOutput.text("");
+                displayInterface();
+            }, 1000)
+        } else {
+            resultOutput.text("Wrong!");
+            sec -= 5;
+            setTimeout(function() {
+                resultOutput.text("");
+                displayInterface();
+            }, 1000)
+        }
+    } else if (questions.length == 0){
+        endGame();
     }
+    }
+
+function selectQuestion() {
+    let selectedQuestion = questions.shift();
+    return selectedQuestion;
 }
 
-console.log(testQuestion)
-populateQuestion(testQuestion);
-populateAnswers(testQuestion);
-handleAnswerClick();
+function timer() {
+    
+    function startTimer() {
+        let timer = setInterval(() => {
+            sec--;
+            timerOutput.text("00:"+sec);
+            if (sec<1 || questions.length == 0) {
+                clearInterval(timer);
+                endGame();
+            }
+        }, 1000);
+    }
+    startTimer();
+    
+}
 
+function displayInterface() {
+    let selectedQuestion = selectQuestion();
+    populateQuestion(selectedQuestion);
+    populateAnswers(selectedQuestion);
+}
+
+function startQuiz() {
+    displayInterface();
+    handleAnswerClick();
+    timer();
+}
+
+function displayHighScore() {
+    
+    let user = localStorage.getItem("user");
+    let score = localStorage.getItem("score");
+    console.log(user, score);
+    // let element = $("<p>");
+    // element.addClass("high-score-output");
+    // element.text(`${user}: ${score}`);
+    // highScoreDiv.append(element);
+}
+
+function endGame() {
+    console.log("end game");
+    // answerOutputDiv.empty();
+    // questionOutput.empty();
+    // timerOutput.empty();
+    $(".container").addClass('hide');
+    score = sec;
+    // let userName = prompt("please enter a username");
+    localStorage.setItem("score", score);
+    localStorage.setItem("user", "luc");
+    displayHighScore();
+}
+
+startQuiz();
