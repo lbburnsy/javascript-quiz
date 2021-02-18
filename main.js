@@ -10,6 +10,12 @@ const highScoreLink = $("#high-score-link");
 
 let sec = 90;
 let score;
+let questionCounter = 3;
+
+function countQuestion() {
+    questionCounter--;
+    console.log(questionCounter);
+}
 
 let questions = [
     {
@@ -83,9 +89,10 @@ function handleAnswerClick() {
 
 function checkCorrect(target) {
     let correct = target.getAttribute("correct");
-    if (questions.length > 0 && sec > 0) {
+    if (questionCounter > 0 && sec > 0) {
         if (correct === "true") {
-            resultOutput.text("Correct!")
+            countQuestion();
+            resultOutput.text("Correct!");
             // timedResultOutput();
             // displayInterface();
             setTimeout(function() {
@@ -93,6 +100,7 @@ function checkCorrect(target) {
                 displayInterface();
             }, 1000)
         } else {
+            countQuestion();
             resultOutput.text("Wrong!");
             sec -= 10;
             setTimeout(function() {
@@ -127,7 +135,7 @@ function timer() {
                 timerOutput.text("00:0"+sec);
             }
             // timerOutput.text("00:"+sec);
-            if (questions.length == 0) {
+            if (questionCounter < 1) {
                 clearInterval(timer);
                 endGame();
             }
@@ -143,11 +151,13 @@ function timer() {
 }
 
 function displayInterface() {
-    let selectedQuestion = selectQuestion();
-    console.log(questions.length + "Before shift")
-    populateQuestion(selectedQuestion);
-    populateAnswers(selectedQuestion);
     
+    if (questionCounter > 0) {
+        let selectedQuestion = selectQuestion();
+        console.log(questions.length + "Before shift")
+        populateQuestion(selectedQuestion);
+        populateAnswers(selectedQuestion);
+    }
 }
 
 function startQuiz() {
@@ -160,6 +170,7 @@ function startQuiz() {
 
 
 function endGame() {
+
     console.log("end game");
     $(".container").addClass('hide');
     highScoreLink.removeClass('hide');
@@ -167,8 +178,10 @@ function endGame() {
     let userName = prompt("please enter a username");
     if (score > localStorage.getItem("score")) {
         localStorage.setItem("user", userName);
-    localStorage.setItem("score", score);
+        localStorage.setItem("score", score);
     }
+    // localStorage.setItem("user", userName);
+    // localStorage.setItem("score", score);
 }
 
 startQuiz();

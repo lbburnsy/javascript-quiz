@@ -1,8 +1,5 @@
 const highScoreDiv = $("#high-score-div");
 
-let highScores = [];
-
-
 function displayHighScore() {
     
     let user = localStorage.getItem("user");
