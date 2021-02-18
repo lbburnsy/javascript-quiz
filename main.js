@@ -8,14 +8,20 @@ const resultOutput = $("#result-output");
 const highScoreDiv = $("#high-score-div");
 const highScoreLink = $("#high-score-link");
 
+
+//Initialize variables for timer, score, and counter
 let sec = 90;
 let score;
-let questionCounter = 3;
+let questionCounter = 10;
+
+// Counts down the question to decide when to kill app
 
 function countQuestion() {
     questionCounter--;
     console.log(questionCounter);
 }
+
+// Array of question objects
 
 let questions = [
     {
@@ -61,10 +67,14 @@ function shuffleArray(array) {
 
 shuffleArray(questions);
 
+// Populates the question output
+
 function populateQuestion(question) {
     questionOutput.empty();
     questionOutput.text(question.question);
 }
+
+// Populates the answer options
 
 function populateAnswers(question) {
     answerOutputDiv.empty();
@@ -79,6 +89,8 @@ function populateAnswers(question) {
     });
 }
 
+// Handles the click on the answer elements
+
 function handleAnswerClick() {
     $(document).on("click", (e) => {
         if (e.target && e.target.id == 'answer-btn') {
@@ -86,6 +98,8 @@ function handleAnswerClick() {
         }
     })
 }
+
+// Checks the correctness 
 
 function checkCorrect(target) {
     let correct = target.getAttribute("correct");
@@ -113,12 +127,16 @@ function checkCorrect(target) {
     }
     }
 
+// Selects the question to be displayed
+
 function selectQuestion() {
     let selectedQuestion = questions.shift();
     console.log(questions.length);
     return selectedQuestion;
     
 }
+
+// Sets the timer, and penalizes a wrong answer.
 
 function timer() {
     
@@ -150,6 +168,8 @@ function timer() {
     
 }
 
+// Checks if it should still be displaying questions based on the counter, and then runs.
+
 function displayInterface() {
     
     if (questionCounter > 0) {
@@ -160,6 +180,8 @@ function displayInterface() {
     }
 }
 
+// starts the actual quiz on page load 
+
 function startQuiz() {
     handleAnswerClick();
     displayInterface();
@@ -167,7 +189,7 @@ function startQuiz() {
     timer();
 }
 
-
+// Runs when the timer runs out or there are no more questions
 
 function endGame() {
 

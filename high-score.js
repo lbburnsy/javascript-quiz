@@ -1,3 +1,5 @@
+// Pulls the local storage and sets the user and score to the current best score
+
 const highScoreDiv = $("#high-score-div");
 
 function displayHighScore() {
