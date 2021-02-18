@@ -25,30 +25,93 @@ function countQuestion() {
 
 let questions = [
     {
-        question: "what is 2+2?",
+        question: "What does CSS stand for?",
         answers: [
-            {answer: "22", correct: false},
-            {answer: "4", correct: true},
-            {answer: "2", correct: false},
-            {answer: "8", correct: false}
+            {answer: "Cascading Style Sheets", correct: true},
+            {answer: "Cows Standing Still", correct: false},
+            {answer: "Cheese Strombolli Special", correct: false},
+            {answer: "Chrysler Style Sheets", correct: false}
         ]
     },
     {
-        question: "what is 4+4?",
+        question: "What can you do with CSS?",
         answers: [
-            {answer: "22", correct: false},
-            {answer: "4", correct: false},
-            {answer: "2", correct: false},
-            {answer: "8", correct: true}
+            {answer: "Create math functions", correct: false},
+            {answer: "Style HTML", correct: true},
+            {answer: "Create HTML elements", correct: false},
+            {answer: "Take user input", correct: false}
         ]
     },
     {
-        question: "what is 1+1?",
+        question: "What is the official name of JavaScript?",
         answers: [
-            {answer: "22", correct: false},
-            {answer: "4", correct: false},
-            {answer: "2", correct: true},
-            {answer: "8", correct: false}
+            {answer: "JavaScript", correct: false},
+            {answer: "JScript", correct: false},
+            {answer: "ECMAScript", correct: true},
+            {answer: "JunoScript", correct: false}
+        ]
+    },
+    {
+        question: "What is the primary use of JavaScript?",
+        answers: [
+            {answer: "Sends out alerts", correct: false},
+            {answer: "Creates Elements", correct: false},
+            {answer: "Color changing", correct: false},
+            {answer: "Interactivity", correct: true}
+        ]
+    },
+    {
+        question: "How old is JavaScript",
+        answers: [
+            {answer: "25", correct: true},
+            {answer: "40", correct: false},
+            {answer: "10", correct: false},
+            {answer: "22", correct: false}
+        ]
+    },
+    {
+        question: "Where would I find the output of console.log()?",
+        answers: [
+            {answer: "The current page", correct: false},
+            {answer: "The Console", correct: true},
+            {answer: "An alert", correct: false},
+            {answer: "A prompt", correct: false}
+        ]
+    },
+    {
+        question: "In CSS, how do we select an ID?",
+        answers: [
+            {answer: "%", correct: false},
+            {answer: "$", correct: false},
+            {answer: "#", correct: true},
+            {answer: "&", correct: false}
+        ]
+    },
+    {
+        question: "In HTML, where should our JavaScript link go?",
+        answers: [
+            {answer: "Nowhere.", correct: false},
+            {answer: "The head", correct: false},
+            {answer: "The top of the body.", correct: false},
+            {answer: "The bottom of the body.", correct: true}
+        ]
+    },
+    {
+        question: "What keyword defines a javascript function?",
+        answers: [
+            {answer: "'function'", correct: true},
+            {answer: "'declare'", correct: false},
+            {answer: "'shazam'", correct: false},
+            {answer: "'booyah'", correct: false}
+        ]
+    },
+    {
+        question: "What is the website for cloud git repos?",
+        answers: [
+            {answer: "GitZone", correct: false},
+            {answer: "GitHub", correct: true},
+            {answer: "GitPlace", correct: false},
+            {answer: "GitHouse", correct: false}
         ]
     }
 ]
@@ -78,7 +141,7 @@ function populateQuestion(question) {
 
 function populateAnswers(question) {
     answerOutputDiv.empty();
-    let answers = question.answers
+    let answers = question.answers;
     answers.forEach(element => {
         let button = $("<a>");
         button.addClass("btn answer-btn");
